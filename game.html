@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sultan IT Kingdom</title>
+    <style>
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 20px; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .card { 
+            border: 2px solid #0f0; padding: 20px; margin: 15px; 
+            width: 200px; cursor: pointer; transition: 0.3s; 
+            text-decoration: none; color: #0f0; border-radius: 10px;
+        }
+        .card:hover { background: #0f0; color: #000; transform: translateY(-10px); }
+        .business { border-color: #007bff; color: #007bff; }
+        .business:hover { background: #007bff; color: #fff; }
+        .store { border-color: #ff9900; color: #ff9900; }
+        .store:hover { background: #ff9900; color: #fff; }
+        .game { border-color: #ff0055; color: #ff0055; animation: blink 1.5s infinite; }
+        .game:hover { background: #ff0055; color: #fff; }
+        @keyframes blink { 50% { opacity: 0.6; } }
+    </style>
+</head>
+<body>
+    <h1 style="font-size: 2.5rem;">SULTAN IT SPECIALIST 🚀</h1>
+    <p>Select Your Elite Destination:</p>
+
+    <div class="container">
+        <a href="business.html" class="card business"><h3>🏢 Business</h3><p>Pro Services</p></a>
+        <a href="terminal.html" class="card"><h3>💻 Terminal</h3><p>Hacker Mode</p></a>
+        <a href="store.html" class="card store"><h3>🛒 Store</h3><p>Tech Shop</p></a>
+        <a href="game.html" class="card game"><h3>🎮 PLAY GAME</h3><p>Space Shooter</p></a>
+    </div>
+
+    <div style="margin-top: 50px; opacity: 0.7;">
+        <p>Managed by Sultan & Junior Sultan</p>
+    </div>
+</body>
+</html>

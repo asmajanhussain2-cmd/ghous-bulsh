@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sultan Space Defender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; text-align: center; touch-action: none; }
+        canvas { display: block; background: #000; border: 2px solid #ff0055; margin: 10px auto; }
+        #ui { color: #ff0055; font-size: 24px; font-family: sans-serif; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div id="ui">Sultan Score: <span id="score">0</span></div>
+    <canvas id="gameCanvas"></canvas>
+    <p style="color: white;">Drag finger/mouse to move</p>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+
+        canvas.width = window.innerWidth > 400 ? 400 : window.innerWidth - 20;
+        canvas.height = window.innerHeight - 150;
+
+        let score = 0;
+        let player = { x: canvas.width / 2 - 20, y: canvas.height - 60, w: 40, h: 40 };
+        let bullets = [];
+        let enemies = [];
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#007bff"; // Sultan Ship
+            ctx.fillRect(player.x, player.y, player.w, player.h);
+
+            bullets.forEach((b, i) => {
+                b.y -= 8;
+                ctx.fillStyle = "yellow";
+                ctx.fillRect(b.x, b.y, 4, 12);
+                if (b.y < 0) bullets.splice(i, 1);
+            });
+
+            enemies.forEach((e, i) => {
+                e.y += 3;
+                ctx.fillStyle = "red";
+                ctx.fillRect(e.x, e.y, 30, 30);
+                
+                bullets.forEach((b, bi) => {
+                    if (b.x < e.x + 30 && b.x + 4 > e.x && b.y < e.y + 30 && b.y + 12 > e.y) {
+                        enemies.splice(i, 1);
+                        bullets.splice(bi, 1);
+                        score += 10;
+                        scoreEl.innerText = score;
+                    }
+                });
+
+                if (e.y > canvas.height) { alert("Game Over! Score: " + score); location.reload(); }
+            });
+        }
+
+        function handleMove(e) {
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            player.x = clientX - canvas.offsetLeft - player.w / 2;
+        }
+
+        window.addEventListener("mousemove", handleMove);
+        window.addEventListener("touchmove", handleMove);
+        setInterval(() => { bullets.push({ x: player.x + 18, y: player.y }); }, 250);
+        setInterval(() => { enemies.push({ x: Math.random() * (canvas.width - 30), y: -30 }); }, 800);
+        setInterval(draw, 20);
+    </script>
+</body>
+</html>
